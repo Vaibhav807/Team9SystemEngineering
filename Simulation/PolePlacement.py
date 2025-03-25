@@ -14,7 +14,7 @@ class PolePlacementSimulator:
         self.T_total = T_total
         self.steps = int(self.T_total / self.dt)
         self.current_step = 0
-        self.state = np.array([0.0, 0.0, 0.2, 0.0])
+        self.state = np.array([0.0, 0.0, 0.1, 0.0])
         self.t = 0.0
         self.time_data = []
         self.x_data = []
@@ -38,7 +38,6 @@ class PolePlacementSimulator:
             [self.m_tot * self.l_c / det]
         ])
         if desired_poles is None:
-            #desired_poles = np.array([-1, -2, -3, -4])
             desired_poles = np.array([-0.07 + 0.5j, -0.07 - 0.5j, -3, -4])
         self.K = place_poles(A_lin, B_lin, desired_poles).gain_matrix
 

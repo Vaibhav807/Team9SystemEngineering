@@ -20,8 +20,8 @@ class LQRSimulator:
         self.m_tot = 0.05
         self.l_c = 0.46
         self.I_tot = 0.01058
-        self.cart_damping = 0.3
-        self.pivot_damping = 0.001
+        self.cart_damping = 0.
+        self.pivot_damping = 0
         self.g = 9.81
         
         self.dt = dt

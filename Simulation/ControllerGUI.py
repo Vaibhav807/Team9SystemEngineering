@@ -11,6 +11,7 @@ from LQR import LQRSimulator
 sim_running = False
 disturb_enabled = False
 noise_enabled = False
+simulator_global = None
 
 controller_modes = {
     "PID": PIDSimulator,
@@ -20,13 +21,14 @@ controller_modes = {
 }
 current_controller = PIDSimulator
 
+arrow_disturb = None
+
 fig = plt.figure(figsize=(14, 8))
 plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.92)
 fig.suptitle("Controller GUI", fontsize=14)
 
 rax = plt.axes([0.06, 0.62, 0.12, 0.15])
 radio = RadioButtons(rax, ('PID', 'PolePlacement', 'LQR', 'NMPC'))
-
 def radio_func(label):
     global current_controller
     current_controller = controller_modes[label]
@@ -48,7 +50,7 @@ def disturb_func(label):
 check_disturb.on_clicked(disturb_func)
 
 ax_amp = plt.axes([0.06, 0.30, 0.12, 0.03])
-slider_amp = Slider(ax_amp, 'Amp', 0.0, 40.0, valinit=0.0)
+slider_amp = Slider(ax_amp, 'Amp', -40.0, 40.0, valinit=0.0)
 
 rax_noise = plt.axes([0.06, 0.23, 0.12, 0.03])
 check_noise = CheckButtons(rax_noise, ['Noise'], [False])
@@ -96,40 +98,35 @@ line_noise, = ax_noise_plot.plot([], [], 'c-', lw=2)
 ax_noise_plot.set_xlim(0, 10)
 ax_noise_plot.set_ylim(-1, 1)
 
-T_total = 100.0
-
+T_total = 50.0
 disturb_data = []
 noise_data = []
 
 def start_simulation(event):
-    global sim_running, disturb_data, noise_data
+    global sim_running, disturb_data, noise_data, simulator_global
     print("Start Simulation button clicked!")
     sim_running = True
     current_label = radio.value_selected
     if current_label == "PID":
-        impulse_interval = 3.0 
         dt_sim = 0.01
         batch_size = 10
         simulator = current_controller(T_total=T_total, dt=dt_sim, Kp=slider_kp.val, Ki=slider_ki.val, Kd=slider_kd.val)
     elif current_label == "PolePlacement":
         dt_sim = 0.001
-        impulse_interval = 1.0 
         batch_size = 50
         simulator = current_controller(T_total=T_total, dt=dt_sim)
     elif current_label == "LQR":
         dt_sim = 0.001
-        impulse_interval = 1.0 
         batch_size = 30
         simulator = current_controller(T_total=T_total, dt=dt_sim)
     elif current_label == "NMPC":
         dt_sim = 0.01
-        impulse_interval = 1.0 
         batch_size = 10
         simulator = current_controller(T_total=T_total, dt=dt_sim)
     else:
         print("Selected controller not implemented.")
         return
-
+    simulator_global = simulator
     steps = int(T_total / dt_sim)
     cart_body.set_visible(True)
     ax1.clear(); ax2.clear(); ax3.clear(); ax_disturb.clear(); ax_noise_plot.clear()
@@ -157,29 +154,21 @@ def start_simulation(event):
     disturb_data = []
     noise_data = []
     num_batches = steps // batch_size
-    
     for i in range(num_batches):
         if not sim_running:
             print("Simulation ended early.")
             break
-        
         if current_label == "PID":
             simulator.set_pid_parameters(slider_kp.val, slider_ki.val, slider_kd.val)
-           
         if disturb_enabled:
-            if abs(simulator.t % impulse_interval) < 0.1:
-                disturbance = slider_amp.val  
-            else:
-                disturbance = 0.0
+            disturbance = slider_amp.val  
         else:
             disturbance = 0.0
-
         if noise_enabled:
-            noise = np.random.uniform(-0.005, 0.005)
+            noise = np.random.uniform(-0.05, 0.05)
             noise = slider_noise.val * noise
         else:
             noise = 0.0
-        
         simulator.set_disturbance(disturbance)
         simulator.set_noise(noise)
         disturb_data.extend([disturbance] * batch_size)
@@ -195,13 +184,11 @@ def start_simulation(event):
         ax3.relim(); ax3.autoscale_view()
         ax_disturb.relim(); ax_disturb.autoscale_view()
         ax_noise_plot.relim(); ax_noise_plot.autoscale_view()
-        update_pendulum(simulator.state[0], simulator.state[2])
+        update_pendulum(simulator.state[0], simulator.state[2], disturbance)
         plt.pause(0.001)
-        
-
     if sim_running and simulator.current_step < simulator.steps:
         simulator.step_batch(simulator.steps - simulator.current_step)
-        line1.set_data(simulator.time_data, np.degrees(simulator.theta_data))
+        line1.set_data(simulator.time_data, simulator.theta_data)
         line2.set_data(simulator.time_data, simulator.x_data)
         line3.set_data(simulator.time_data, simulator.F_data)
         line_d.set_data(simulator.time_data, disturb_data)
@@ -220,9 +207,10 @@ def end_simulation(event):
     global sim_running
     sim_running = False
     print("End Simulation clicked.")
+    plot_results()
 end_button.on_clicked(end_simulation)
 
-def update_pendulum(cart_x, theta):
+def update_pendulum(cart_x, theta, disturbance=0.0):
     cart_body.set_xy((cart_x - cart_width/2, 0))
     current_xlim = ax_pendulum.get_xlim()
     half_width = (current_xlim[1] - current_xlim[0]) / 2.0
@@ -235,6 +223,50 @@ def update_pendulum(cart_x, theta):
     bob_y = pivot_y + L * math.cos(theta)
     pole.set_data([pivot_x, bob_x], [pivot_y, bob_y])
     pendulum_tip.set_data(bob_x, bob_y)
+    global arrow_disturb
+    if arrow_disturb is not None:
+        try:
+            arrow_disturb.remove()
+        except Exception:
+            pass
+    if abs(disturbance) > 1e-6:
+        scale = 0.015
+        arrow_dx = disturbance * scale
+        arrow_start_x = cart_x
+        arrow_start_y = cart_height + 0.02
+        arrow = patches.FancyArrow(arrow_start_x, arrow_start_y, arrow_dx, 0, width=0.01, head_width=0.05, head_length=0.03, color='purple')
+        ax_pendulum.add_patch(arrow)
+        arrow_disturb = arrow
+    else:
+        arrow_disturb = None
     plt.draw()
+
+def plot_results():
+    global simulator_global
+    if simulator_global is None:
+        print("No simulation data to plot.")
+        return
+    fig_theta = plt.figure()
+    plt.plot(simulator_global.time_data, simulator_global.theta_data, 'b-', label="θ (rad)")
+    plt.axhline(0, color='r', linestyle='--', label="Desired 0")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Pole Angle (rad)")
+    plt.legend()
+    plt.title("Pole Angle vs Time")
+    plt.show()
+    fig_x = plt.figure()
+    plt.plot(simulator_global.time_data, simulator_global.x_data, 'g-', label="x (m)")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Cart Position (m)")
+    plt.legend()
+    plt.title("Cart Position vs Time")
+    plt.show()
+    fig_F = plt.figure()
+    plt.plot(simulator_global.time_data, simulator_global.F_data, 'm-', label="Control Force F (N)")
+    plt.xlabel("Time (s)")
+    plt.ylabel("Force (N)")
+    plt.legend()
+    plt.title("Control Force vs Time")
+    plt.show()
 
 plt.show()
