@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ActionLanguage="http://www.omg.org/spec/ALF/20120827/ActionLanguage-Profile" xmlns:Blocks="http://www.eclipse.org/papyrus/sysml/1.6/SysML/Blocks" xmlns:ConstraintBlocks="http://www.eclipse.org/papyrus/sysml/1.6/SysML/ConstraintBlocks" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/ALF/20120827/ActionLanguage-Profile pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ http://www.eclipse.org/papyrus/sysml/1.6/SysML/Blocks http://www.eclipse.org/papyrus/sysml/1.6/SysML#//blocks http://www.eclipse.org/papyrus/sysml/1.6/SysML/ConstraintBlocks http://www.eclipse.org/papyrus/sysml/1.6/SysML#//constraintblocks">
+  <uml:Model xmi:id="_w5H1kOHOEe-jgrdFf-7aAg" name="Sys presentation 2">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_qmLqEOKNEe-T6eJ3TAlzlw">
+      <body>M (Cart mass)
+&#xD;
+x (Cart position)&#xD;
+
+x_ddot (Cart acceleration)</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_LU478OKOEe-T6eJ3TAlzlw">
+      <body>m (Pendulum mass)
+&#xD;
+l (Pendulum length)
+&#xD;
+&#xD;
+theta (Pendulum angle)&#xD;
+
+theta_ddot (Pendulum angular acceleration)</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_v7o2YOKOEe-T6eJ3TAlzlw">
+      <body>F (Applied force)&#xD;
+
+disturbance_force (External disturbances)</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_Ot1YQOKPEe-T6eJ3TAlzlw">
+      <body>e θ ​ =θ−θ desired ​ (error between actual and desired angle)&#xD;
+K p ​ ,K d ​ ,K i ​ = PID gains</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_9LmbIOKPEe-T6eJ3TAlzlw">
+      <body>measured_theta (IMU reading with noise) &#xD;
+&#xD;
+measured_x (Cart position with noise</body>
+    </ownedComment>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_w-VswOHOEe-jgrdFf-7aAg">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_w-p10OHOEe-jgrdFf-7aAg">
+      <importedPackage xmi:type="uml:Package" href="pathmap://SysML16_LIBRARIES/SysML-Standard-Library.uml#SysML.package_packagedElement_Libraries"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_WbFMUOHVEe-jgrdFf-7aAg" name="Inverted Pendulum Stabilization and Navigation System (IPSNS)">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_t42o4OHWEe-jgrdFf-7aAg" type="_408_gOHVEe-jgrdFf-7aAg" aggregation="composite" association="_t4zlkOHWEe-jgrdFf-7aAg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_t43P8OHWEe-jgrdFf-7aAg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_t433AOHWEe-jgrdFf-7aAg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_yjZFYOHWEe-jgrdFf-7aAg" name="environmental perception and navigation subsystem (epns)&#xD;&#xA;" type="__AzdwOHVEe-jgrdFf-7aAg" aggregation="composite" association="_yjX3QOHWEe-jgrdFf-7aAg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yjZFYeHWEe-jgrdFf-7aAg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yjZscOHWEe-jgrdFf-7aAg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_0j0FAuHWEe-jgrdFf-7aAg" name="failure handling and redundancy subsystem (fhrs)&#xA;" type="_IpsDkOHWEe-jgrdFf-7aAg" aggregation="composite" association="_0jyP0OHWEe-jgrdFf-7aAg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0j0sEOHWEe-jgrdFf-7aAg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0j0sEeHWEe-jgrdFf-7aAg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_3St7QuHWEe-jgrdFf-7aAg" name="communication and remote interface subsystem (cris)&#xA;" type="_8TXnIOHVEe-jgrdFf-7aAg" aggregation="composite" association="_3StUMOHWEe-jgrdFf-7aAg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3SuiUOHWEe-jgrdFf-7aAg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3SuiUeHWEe-jgrdFf-7aAg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_4UQQwOHWEe-jgrdFf-7aAg" name="computational control and feedback subsystem (ccfs)&#xA;" type="_3PalEOHVEe-jgrdFf-7aAg" aggregation="composite" association="_4UPCoOHWEe-jgrdFf-7aAg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4UQQweHWEe-jgrdFf-7aAg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4UQQwuHWEe-jgrdFf-7aAg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_5N_8MeHWEe-jgrdFf-7aAg" type="_zY3KQOHVEe-jgrdFf-7aAg" aggregation="composite" association="_5N_VIOHWEe-jgrdFf-7aAg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5N_8MuHWEe-jgrdFf-7aAg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5N_8M-HWEe-jgrdFf-7aAg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_6asY0eHWEe-jgrdFf-7aAg" name="pendulum dynamics and stabilization subsystem (pdss)&#xA;" type="_uDDjMOHVEe-jgrdFf-7aAg" aggregation="composite" association="_6arKsOHWEe-jgrdFf-7aAg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6asY0uHWEe-jgrdFf-7aAg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6asY0-HWEe-jgrdFf-7aAg" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_8vLj8uHWEe-jgrdFf-7aAg" name="locomotion and actuation subsystem (las)" type="_p3HuQOHVEe-jgrdFf-7aAg" aggregation="composite" association="_8vK84OHWEe-jgrdFf-7aAg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8vMLAOHWEe-jgrdFf-7aAg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8vMLAeHWEe-jgrdFf-7aAg" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_p3HuQOHVEe-jgrdFf-7aAg" name="Locomotion and Actuation Subsystem (LAS)">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_1K_NkuI1Ee-xsaMb9CbKig" name="failure handling and redundancy subsystem (fhrs)&#xA;" type="_FycJoOHWEe-jgrdFf-7aAg" aggregation="composite" association="_1K9_cOI1Ee-xsaMb9CbKig">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1K_Nk-I1Ee-xsaMb9CbKig"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1K_NlOI1Ee-xsaMb9CbKig" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_uDDjMOHVEe-jgrdFf-7aAg" name="Pendulum Dynamics and Stabilization Subsystem (PDSS)&#xA;">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_876MMuI1Ee-xsaMb9CbKig" name="failure handling and redundancy subsystem (fhrs)&#xA;" type="_IpsDkOHWEe-jgrdFf-7aAg" aggregation="composite" association="_874-EOI1Ee-xsaMb9CbKig">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_876MM-I1Ee-xsaMb9CbKig"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_877aUOI1Ee-xsaMb9CbKig" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_zY3KQOHVEe-jgrdFf-7aAg" name="Inertial Sensing and State Estimation Subsystem (ISSES)&#xA;">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_kgF9kOI1Ee-xsaMb9CbKig" name="communication and remote interface subsystem (cris)&#xA;" type="_8TXnIOHVEe-jgrdFf-7aAg" aggregation="composite" association="_kf37IOI1Ee-xsaMb9CbKig">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kgGkoOI1Ee-xsaMb9CbKig"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kgHLsOI1Ee-xsaMb9CbKig" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_3PalEOHVEe-jgrdFf-7aAg" name="Computational Control and Feedback Subsystem (CCFS)&#xA;">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_t-iN8uI1Ee-xsaMb9CbKig" name="environmental perception and navigation subsystem (epns)&#xA;" type="__AzdwOHVEe-jgrdFf-7aAg" aggregation="composite" association="_t-hm4OI1Ee-xsaMb9CbKig">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_t-i1AOI1Ee-xsaMb9CbKig"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_t-i1AeI1Ee-xsaMb9CbKig" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_B0-M4uI2Ee-xsaMb9CbKig" name="failure handling and redundancy subsystem (fhrs)&#xA;" type="_IpsDkOHWEe-jgrdFf-7aAg" aggregation="composite" association="_B08-wOI2Ee-xsaMb9CbKig">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_B0-M4-I2Ee-xsaMb9CbKig"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_B0-M5OI2Ee-xsaMb9CbKig" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_408_gOHVEe-jgrdFf-7aAg" name="Power Distribution and Energy Management Subsystem (PDEMS)&#xA;">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Em_okuI2Ee-xsaMb9CbKig" name="computational control and feedback subsystem (ccfs)&#xA;" type="_3PalEOHVEe-jgrdFf-7aAg" aggregation="composite" association="_Em_BgOI2Ee-xsaMb9CbKig">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Em_ok-I2Ee-xsaMb9CbKig"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_EnAPoOI2Ee-xsaMb9CbKig" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_8TXnIOHVEe-jgrdFf-7aAg" name="Communication and Remote Interface Subsystem (CRIS)&#xA;"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="__AzdwOHVEe-jgrdFf-7aAg" name="Environmental Perception and Navigation Subsystem (EPNS)&#xA;"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_FycJoOHWEe-jgrdFf-7aAg" name="System Constraints (SC)&#xA;"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_IpsDkOHWEe-jgrdFf-7aAg" name="Failure Handling and Redundancy Subsystem (FHRS)&#xA;"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_t4zlkOHWEe-jgrdFf-7aAg" memberEnd="_t42o4OHWEe-jgrdFf-7aAg _t433AeHWEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_t41awOHWEe-jgrdFf-7aAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_t41aweHWEe-jgrdFf-7aAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_t433AeHWEe-jgrdFf-7aAg" name="inverted pendulum stabilization and navigation system (ipsns)" type="_WbFMUOHVEe-jgrdFf-7aAg" association="_t4zlkOHWEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_yjX3QOHWEe-jgrdFf-7aAg" memberEnd="_yjZFYOHWEe-jgrdFf-7aAg _yjZsceHWEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yjYeUOHWEe-jgrdFf-7aAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_yjYeUeHWEe-jgrdFf-7aAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_yjZsceHWEe-jgrdFf-7aAg" name="inverted pendulum stabilization and navigation system (ipsns)" type="_WbFMUOHVEe-jgrdFf-7aAg" association="_yjX3QOHWEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_0jyP0OHWEe-jgrdFf-7aAg" memberEnd="_0j0FAuHWEe-jgrdFf-7aAg _0j0sEuHWEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0j0FAOHWEe-jgrdFf-7aAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0j0FAeHWEe-jgrdFf-7aAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_0j0sEuHWEe-jgrdFf-7aAg" name="inverted pendulum stabilization and navigation system (ipsns)" type="_WbFMUOHVEe-jgrdFf-7aAg" association="_0jyP0OHWEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_3StUMOHWEe-jgrdFf-7aAg" memberEnd="_3St7QuHWEe-jgrdFf-7aAg _3SuiUuHWEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_3St7QOHWEe-jgrdFf-7aAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3St7QeHWEe-jgrdFf-7aAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_3SuiUuHWEe-jgrdFf-7aAg" name="inverted pendulum stabilization and navigation system (ipsns)" type="_WbFMUOHVEe-jgrdFf-7aAg" association="_3StUMOHWEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_4UPCoOHWEe-jgrdFf-7aAg" memberEnd="_4UQQwOHWEe-jgrdFf-7aAg _4UQQw-HWEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4UPpsOHWEe-jgrdFf-7aAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4UPpseHWEe-jgrdFf-7aAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_4UQQw-HWEe-jgrdFf-7aAg" name="inverted pendulum stabilization and navigation system (ipsns)" type="_WbFMUOHVEe-jgrdFf-7aAg" association="_4UPCoOHWEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_5N_VIOHWEe-jgrdFf-7aAg" memberEnd="_5N_8MeHWEe-jgrdFf-7aAg _5N_8NOHWEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5N_VIeHWEe-jgrdFf-7aAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_5N_8MOHWEe-jgrdFf-7aAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_5N_8NOHWEe-jgrdFf-7aAg" name="inverted pendulum stabilization and navigation system (ipsns)" type="_WbFMUOHVEe-jgrdFf-7aAg" association="_5N_VIOHWEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_6arKsOHWEe-jgrdFf-7aAg" memberEnd="_6asY0eHWEe-jgrdFf-7aAg _6asY1OHWEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6arxwOHWEe-jgrdFf-7aAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6asY0OHWEe-jgrdFf-7aAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_6asY1OHWEe-jgrdFf-7aAg" name="inverted pendulum stabilization and navigation system (ipsns)" type="_WbFMUOHVEe-jgrdFf-7aAg" association="_6arKsOHWEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_8vK84OHWEe-jgrdFf-7aAg" memberEnd="_8vLj8uHWEe-jgrdFf-7aAg _8vMLAuHWEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_8vLj8OHWEe-jgrdFf-7aAg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_8vLj8eHWEe-jgrdFf-7aAg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_8vMLAuHWEe-jgrdFf-7aAg" name="inverted pendulum stabilization and navigation system (ipsns)" type="_WbFMUOHVEe-jgrdFf-7aAg" association="_8vK84OHWEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_kf37IOI1Ee-xsaMb9CbKig" memberEnd="_kgF9kOI1Ee-xsaMb9CbKig _kgHLseI1Ee-xsaMb9CbKig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_kgFWgOI1Ee-xsaMb9CbKig" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_kgFWgeI1Ee-xsaMb9CbKig" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_kgHLseI1Ee-xsaMb9CbKig" name="inertial sensing and state estimation subsystem (isses)&#xA;" type="_zY3KQOHVEe-jgrdFf-7aAg" association="_kf37IOI1Ee-xsaMb9CbKig"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_t-hm4OI1Ee-xsaMb9CbKig" memberEnd="_t-iN8uI1Ee-xsaMb9CbKig _t-i1AuI1Ee-xsaMb9CbKig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_t-iN8OI1Ee-xsaMb9CbKig" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_t-iN8eI1Ee-xsaMb9CbKig" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_t-i1AuI1Ee-xsaMb9CbKig" name="computational control and feedback subsystem (ccfs)&#xA;" type="_3PalEOHVEe-jgrdFf-7aAg" association="_t-hm4OI1Ee-xsaMb9CbKig"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_1K9_cOI1Ee-xsaMb9CbKig" memberEnd="_1K_NkuI1Ee-xsaMb9CbKig _1K_0oOI1Ee-xsaMb9CbKig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_1K_NkOI1Ee-xsaMb9CbKig" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_1K_NkeI1Ee-xsaMb9CbKig" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_1K_0oOI1Ee-xsaMb9CbKig" name="locomotion and actuation subsystem (las)" type="_p3HuQOHVEe-jgrdFf-7aAg" association="_1K9_cOI1Ee-xsaMb9CbKig"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_874-EOI1Ee-xsaMb9CbKig" memberEnd="_876MMuI1Ee-xsaMb9CbKig _877aUeI1Ee-xsaMb9CbKig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_876MMOI1Ee-xsaMb9CbKig" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_876MMeI1Ee-xsaMb9CbKig" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_877aUeI1Ee-xsaMb9CbKig" name="pendulum dynamics and stabilization subsystem (pdss)&#xA;" type="_uDDjMOHVEe-jgrdFf-7aAg" association="_874-EOI1Ee-xsaMb9CbKig"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_B08-wOI2Ee-xsaMb9CbKig" memberEnd="_B0-M4uI2Ee-xsaMb9CbKig _B0-M5eI2Ee-xsaMb9CbKig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_B0-M4OI2Ee-xsaMb9CbKig" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_B0-M4eI2Ee-xsaMb9CbKig" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_B0-M5eI2Ee-xsaMb9CbKig" name="computational control and feedback subsystem (ccfs)&#xA;" type="_3PalEOHVEe-jgrdFf-7aAg" association="_B08-wOI2Ee-xsaMb9CbKig"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Em_BgOI2Ee-xsaMb9CbKig" memberEnd="_Em_okuI2Ee-xsaMb9CbKig _EnAPoeI2Ee-xsaMb9CbKig">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Em_okOI2Ee-xsaMb9CbKig" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Em_okeI2Ee-xsaMb9CbKig" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_EnAPoeI2Ee-xsaMb9CbKig" name="power distribution and energy management subsystem (pdems)&#xA;" type="_408_gOHVEe-jgrdFf-7aAg" association="_Em_BgOI2Ee-xsaMb9CbKig"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_1J1dYOI9Ee-xsaMb9CbKig" name="IPSNS">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FtEJsOI_Ee-xsaMb9CbKig" name="locomotion and Actuation Subsystem (LAS)" type="_p3HuQOHVEe-jgrdFf-7aAg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FtFX1OI_Ee-xsaMb9CbKig" name="pendulum Dynamics and Stabilization Subsystem (PDSS)&#xA;" type="_uDDjMOHVEe-jgrdFf-7aAg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FtF-6OI_Ee-xsaMb9CbKig" name="inertial Sensing and State Estimation Subsystem (ISSES)&#xA;" type="_zY3KQOHVEe-jgrdFf-7aAg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FtGl-OI_Ee-xsaMb9CbKig" name="computational Control and Feedback Subsystem (CCFS)&#xA;" type="_3PalEOHVEe-jgrdFf-7aAg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FtHNCOI_Ee-xsaMb9CbKig" name="power Distribution and Energy Management Subsystem (PDEMS)&#xA;" type="_408_gOHVEe-jgrdFf-7aAg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FtHNEeI_Ee-xsaMb9CbKig" name="communication and Remote Interface Subsystem (CRIS)&#xA;" type="_8TXnIOHVEe-jgrdFf-7aAg"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_FtH0GOI_Ee-xsaMb9CbKig" name="environmental Perception and Navigation Subsystem (EPNS)&#xA;" type="__AzdwOHVEe-jgrdFf-7aAg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_mtHDMOI_Ee-xsaMb9CbKig" name="Motor signal" client="_FtGl-OI_Ee-xsaMb9CbKig" supplier="_FtEJsOI_Ee-xsaMb9CbKig"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_oj-eMOI_Ee-xsaMb9CbKig" name="Stabilization command" client="_FtGl-OI_Ee-xsaMb9CbKig" supplier="_FtFX1OI_Ee-xsaMb9CbKig"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_wAWwMOI_Ee-xsaMb9CbKig" name="Encoder and IMU feedback" client="_FtF-6OI_Ee-xsaMb9CbKig" supplier="_FtGl-OI_Ee-xsaMb9CbKig"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_3r3qYOI_Ee-xsaMb9CbKig" client="_FtHNCOI_Ee-xsaMb9CbKig" supplier="_FtEJsOI_Ee-xsaMb9CbKig"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_4_ue8OI_Ee-xsaMb9CbKig" client="_FtHNCOI_Ee-xsaMb9CbKig" supplier="_FtFX1OI_Ee-xsaMb9CbKig"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_6RC84OI_Ee-xsaMb9CbKig" name="Power signal" client="_FtHNCOI_Ee-xsaMb9CbKig" supplier="_FtGl-OI_Ee-xsaMb9CbKig"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="__N1nAOI_Ee-xsaMb9CbKig" name="Communication signal" client="_FtHNEeI_Ee-xsaMb9CbKig" supplier="_FtGl-OI_Ee-xsaMb9CbKig"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_EYXLIOJAEe-xsaMb9CbKig" name="Path planning" client="_FtH0GOI_Ee-xsaMb9CbKig" supplier="_FtGl-OI_Ee-xsaMb9CbKig"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_XGlskOKHEe-CTKwG6EQZpw" name="Cart Dynamics block">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_578voOKMEe-T6eJ3TAlzlw" name="Constraints">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_5799wOKMEe-T6eJ3TAlzlw" name="constraintSpec">
+          <language>OCL</language>
+          <body>Mx¨+mθ¨cos(θ)=F&#xD;
+</body>
+        </specification>
+      </ownedRule>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_ga0pUOKNEe-T6eJ3TAlzlw" name="Parameters" visibility="private" aggregation="shared"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_k27g4uKQEe-T6eJ3TAlzlw" name="controller block" type="_6CmfUOKOEe-T6eJ3TAlzlw" aggregation="composite" association="_k2650OKQEe-T6eJ3TAlzlw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k28vAOKQEe-T6eJ3TAlzlw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k299IOKQEe-T6eJ3TAlzlw" value="1"/>
+      </ownedAttribute>
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_xd7lAOKNEe-T6eJ3TAlzlw" name="Pendulum Dynamics Block&#xA;&#xA;">
+        <ownedRule xmi:type="uml:Constraint" xmi:id="_BgMuwOKOEe-T6eJ3TAlzlw" name="Constraint1">
+          <specification xmi:type="uml:OpaqueExpression" xmi:id="_BgPLAOKOEe-T6eJ3TAlzlw" name="constraintSpec">
+            <language>OCL</language>
+            <body>mlθ¨=−mgsin(θ)+Fcos(θ)</body>
+          </specification>
+        </ownedRule>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_IAucgOKOEe-T6eJ3TAlzlw" name="Parameters"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_itaPouKQEe-T6eJ3TAlzlw" name="controller block" type="_6CmfUOKOEe-T6eJ3TAlzlw" aggregation="composite" association="_itZokOKQEe-T6eJ3TAlzlw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_itaPo-KQEe-T6eJ3TAlzlw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ita2sOKQEe-T6eJ3TAlzlw" value="1"/>
+        </ownedAttribute>
+      </nestedClassifier>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_UiukgOKOEe-T6eJ3TAlzlw" name="Force application block">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_npVpAOKOEe-T6eJ3TAlzlw" name="Constraint1">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_npYsUOKOEe-T6eJ3TAlzlw" name="constraintSpec">
+          <language>OCL</language>
+          <body>Fcontrol​=Kp​eθ​+Kd​eθ​˙​+Ki​∫eθ​dt</body>
+        </specification>
+      </ownedRule>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_uq0HsOKOEe-T6eJ3TAlzlw" name="Parameters"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_6CmfUOKOEe-T6eJ3TAlzlw" name="Controller block">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_7axMIOKOEe-T6eJ3TAlzlw" name="Constraint1">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_7azBUOKOEe-T6eJ3TAlzlw" name="constraintSpec">
+          <language>OCL</language>
+          <body>F=Kp​eθ​+Kd​eθ​˙​+Ki​∫eθ​dt</body>
+        </specification>
+      </ownedRule>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_K6KSUOKPEe-T6eJ3TAlzlw" name="Parameters"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_qX85cuKQEe-T6eJ3TAlzlw" name="force application block" type="_UiukgOKOEe-T6eJ3TAlzlw" aggregation="composite" association="_qX8SYOKQEe-T6eJ3TAlzlw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qX85c-KQEe-T6eJ3TAlzlw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qX85dOKQEe-T6eJ3TAlzlw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_ksQXYOKPEe-T6eJ3TAlzlw" name="IMU sensor block">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_mSyQUOKPEe-T6eJ3TAlzlw" name="Constraint1">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_mS0FgOKPEe-T6eJ3TAlzlw" name="constraintSpec">
+          <language>OCL</language>
+          <body>Ftotal​=Fcontrol​+Fdisturbance​.</body>
+        </specification>
+      </ownedRule>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_10V5sOKPEe-T6eJ3TAlzlw" name="Parameters"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_noY74OKQEe-T6eJ3TAlzlw" name="controller block" type="_6CmfUOKOEe-T6eJ3TAlzlw" aggregation="composite" association="_noXtwOKQEe-T6eJ3TAlzlw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_noY74eKQEe-T6eJ3TAlzlw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_noY74uKQEe-T6eJ3TAlzlw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_itZokOKQEe-T6eJ3TAlzlw" memberEnd="_itaPouKQEe-T6eJ3TAlzlw _ita2seKQEe-T6eJ3TAlzlw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_itaPoOKQEe-T6eJ3TAlzlw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_itaPoeKQEe-T6eJ3TAlzlw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_ita2seKQEe-T6eJ3TAlzlw" name="pendulum dynamics block&#xA;&#xA;" type="_xd7lAOKNEe-T6eJ3TAlzlw" association="_itZokOKQEe-T6eJ3TAlzlw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_k2650OKQEe-T6eJ3TAlzlw" memberEnd="_k27g4uKQEe-T6eJ3TAlzlw _k2_LQOKQEe-T6eJ3TAlzlw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_k27g4OKQEe-T6eJ3TAlzlw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_k27g4eKQEe-T6eJ3TAlzlw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_k2_LQOKQEe-T6eJ3TAlzlw" name="cart dynamics block" type="_XGlskOKHEe-CTKwG6EQZpw" association="_k2650OKQEe-T6eJ3TAlzlw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_noXtwOKQEe-T6eJ3TAlzlw" memberEnd="_noY74OKQEe-T6eJ3TAlzlw _noY74-KQEe-T6eJ3TAlzlw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_noYU0OKQEe-T6eJ3TAlzlw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_noYU0eKQEe-T6eJ3TAlzlw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_noY74-KQEe-T6eJ3TAlzlw" name="imu sensor block" type="_ksQXYOKPEe-T6eJ3TAlzlw" association="_noXtwOKQEe-T6eJ3TAlzlw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_qX8SYOKQEe-T6eJ3TAlzlw" memberEnd="_qX85cuKQEe-T6eJ3TAlzlw _qX85deKQEe-T6eJ3TAlzlw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_qX85cOKQEe-T6eJ3TAlzlw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_qX85ceKQEe-T6eJ3TAlzlw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_qX85deKQEe-T6eJ3TAlzlw" name="controller block" type="_6CmfUOKOEe-T6eJ3TAlzlw" association="_qX8SYOKQEe-T6eJ3TAlzlw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:StateMachine" xmi:id="_g0h-QOKXEe-T6eJ3TAlzlw" name="StateMachine59">
+      <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_r0-z8OKXEe-T6eJ3TAlzlw" name="System start" kind="entryPoint"/>
+      <region xmi:type="uml:Region" xmi:id="_i7ecoOKXEe-T6eJ3TAlzlw" name="Region1">
+        <transition xmi:type="uml:Transition" xmi:id="_WXFSgOKYEe-T6eJ3TAlzlw" source="_r0-z8OKXEe-T6eJ3TAlzlw" target="_7XHFEOKXEe-T6eJ3TAlzlw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_YOF3cOKYEe-T6eJ3TAlzlw" source="_7XHFEOKXEe-T6eJ3TAlzlw" target="__VBFEOKXEe-T6eJ3TAlzlw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_a6P7sOKYEe-T6eJ3TAlzlw" source="__VBFEOKXEe-T6eJ3TAlzlw" target="_CDCxkOKYEe-T6eJ3TAlzlw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_h4gHQOKYEe-T6eJ3TAlzlw" source="_CDCxkOKYEe-T6eJ3TAlzlw" target="_F1oSYOKYEe-T6eJ3TAlzlw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_k1-lAOKYEe-T6eJ3TAlzlw" source="_F1oSYOKYEe-T6eJ3TAlzlw" target="_ImkI8OKYEe-T6eJ3TAlzlw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_njetEOKYEe-T6eJ3TAlzlw" source="_ImkI8OKYEe-T6eJ3TAlzlw" target="_OK8-kOKYEe-T6eJ3TAlzlw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_pdoFkOKYEe-T6eJ3TAlzlw" source="_OK8-kOKYEe-T6eJ3TAlzlw" target="_3IjZ8OKXEe-T6eJ3TAlzlw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_Yas6oOKZEe-T6eJ3TAlzlw" source="_AzhN8OKZEe-T6eJ3TAlzlw" target="_CDCxkOKYEe-T6eJ3TAlzlw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_dSP4YOKZEe-T6eJ3TAlzlw" source="_AzhN8OKZEe-T6eJ3TAlzlw" target="_OK8-kOKYEe-T6eJ3TAlzlw">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_eu6qsOKZEe-T6eJ3TAlzlw">
+            <body>no&#xD;
+</body>
+          </ownedComment>
+        </transition>
+        <subvertex xmi:type="uml:FinalState" xmi:id="_3IjZ8OKXEe-T6eJ3TAlzlw" name="System shutdown"/>
+        <subvertex xmi:type="uml:State" xmi:id="_7XHFEOKXEe-T6eJ3TAlzlw" name="Idle state"/>
+        <subvertex xmi:type="uml:State" xmi:id="__VBFEOKXEe-T6eJ3TAlzlw" name="Initialization"/>
+        <subvertex xmi:type="uml:State" xmi:id="_CDCxkOKYEe-T6eJ3TAlzlw" name="Stabilization ready"/>
+        <subvertex xmi:type="uml:State" xmi:id="_F1oSYOKYEe-T6eJ3TAlzlw" name="Disturbance detected"/>
+        <subvertex xmi:type="uml:State" xmi:id="_ImkI8OKYEe-T6eJ3TAlzlw" name="Correction applied"/>
+        <subvertex xmi:type="uml:State" xmi:id="_OK8-kOKYEe-T6eJ3TAlzlw" name="Emergency handling"/>
+        <subvertex xmi:type="uml:Pseudostate" xmi:id="_AzhN8OKZEe-T6eJ3TAlzlw" name="Correction applied" kind="choice"/>
+      </region>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w7o-EOHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w7udoOHOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w91WcOHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w91WceHOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#//activities"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Activities"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-QNMOHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-QNMeHOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#//allocations"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Allocations"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-QNMuHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-QNM-HOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#//blocks"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Blocks"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-TQgOHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-TQgeHOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#//constraintblocks"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML.package_packagedElement_ConstraintBlocks"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-T3kOHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-T3keHOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#//deprecatedelements"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML.package_packagedElement_DeprecatedElements"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-T3kuHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-T3k-HOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#//modelelements"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML.package_packagedElement_ModelElements"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-T3lOHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-T3leHOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#//portsandflows"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Ports_u0026Flows"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-T3luHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-T3l-HOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/sysml/1.6/SysML#//requirements"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML.package_packagedElement_Requirements"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_w-VFsOHOEe-jgrdFf-7aAg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_w-VFseHOEe-jgrdFf-7aAg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_eu6qseKZEe-T6eJ3TAlzlw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eu6qsuKZEe-T6eJ3TAlzlw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Model>
+  <Blocks:Block xmi:id="_WbMhEOHVEe-jgrdFf-7aAg" base_Class="_WbFMUOHVEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_p3PDAOHVEe-jgrdFf-7aAg" base_Class="_p3HuQOHVEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_uDF_cOHVEe-jgrdFf-7aAg" base_Class="_uDDjMOHVEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_zY60oOHVEe-jgrdFf-7aAg" base_Class="_zY3KQOHVEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_3PgrsOHVEe-jgrdFf-7aAg" base_Class="_3PalEOHVEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_41Ap4OHVEe-jgrdFf-7aAg" base_Class="_408_gOHVEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_8TaDYOHVEe-jgrdFf-7aAg" base_Class="_8TXnIOHVEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="__A16AOHVEe-jgrdFf-7aAg" base_Class="__AzdwOHVEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_FyfM8OHWEe-jgrdFf-7aAg" base_Class="_FycJoOHWEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_Ipvt8OHWEe-jgrdFf-7aAg" base_Class="_IpsDkOHWEe-jgrdFf-7aAg"/>
+  <Blocks:Block xmi:id="_1J1dYeI9Ee-xsaMb9CbKig" base_Class="_1J1dYOI9Ee-xsaMb9CbKig"/>
+  <ConstraintBlocks:ConstraintBlock xmi:id="_XGp-AOKHEe-CTKwG6EQZpw" base_Class="_XGlskOKHEe-CTKwG6EQZpw"/>
+  <ConstraintBlocks:ConstraintBlock xmi:id="_xd8MEOKNEe-T6eJ3TAlzlw" base_Class="_xd7lAOKNEe-T6eJ3TAlzlw"/>
+  <ConstraintBlocks:ConstraintBlock xmi:id="_Uixn0OKOEe-T6eJ3TAlzlw" base_Class="_UiukgOKOEe-T6eJ3TAlzlw"/>
+  <ConstraintBlocks:ConstraintBlock xmi:id="_6CoUgOKOEe-T6eJ3TAlzlw" base_Class="_6CmfUOKOEe-T6eJ3TAlzlw"/>
+  <ConstraintBlocks:ConstraintBlock xmi:id="_ksSMkOKPEe-T6eJ3TAlzlw" base_Class="_ksQXYOKPEe-T6eJ3TAlzlw"/>
+  <ActionLanguage:TextualRepresentation xmi:id="_eu-8IOKZEe-T6eJ3TAlzlw" base_Comment="_eu6qsOKZEe-T6eJ3TAlzlw" language="org.eclipse.papyrus.uml.textedit.transition.xtext.UmlTransition"/>
+</xmi:XMI>
